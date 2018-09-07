@@ -6,7 +6,6 @@ namespace ScreenTester.TestingModes
 {
     class ZebraMode : ITestingMode
     {
-        private double sec = 0.1;
         private double animationPeriod = 2;
         private int lineWidth = 200;
         public IKeyboardBinding ModeKeyboardBinding { get; set; }
@@ -24,24 +23,33 @@ namespace ScreenTester.TestingModes
         public void RednerFrame(double time, int width, int height)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Begin(PrimitiveType.Points);
+            GL.Begin(PrimitiveType.Quads);
             GL.Color3(1.0, 1.0, 1.0);
-            for (int i = 0; i < width; i++)
+            for (int offset = GetOffset(time);
+                offset < height;
+                offset += (lineWidth * 2))
             {
-                for (int j = 0; j < height; j++)
-                {
-                    if (j % lineWidth * 2 < lineWidth ^ time % animationPeriod < animationPeriod * 0.5)
-                    {
-                        GL.Vertex2(i, j);
-                    }
-                }
+                DrawRectangle(width, lineWidth, offset);
             }
             GL.End();
         }
 
+        private int GetOffset(double time)
+        {
+            return time % animationPeriod * 2 < animationPeriod ? 0 : lineWidth;
+        }
+
+        private void DrawRectangle(int width, int height, int topOffset)
+        {
+            GL.Vertex2(0, topOffset);
+            GL.Vertex2(width, topOffset);
+            GL.Vertex2(width, topOffset + height);
+            GL.Vertex2(0, topOffset + height);
+        }
+
         private void DecreaseAnimationPeriod()
         {
-            animationPeriod -= sec;
+            animationPeriod -= 0.1;
             if (animationPeriod < 0.5)
             {
                 animationPeriod = 0.5;
@@ -50,7 +58,7 @@ namespace ScreenTester.TestingModes
 
         private void IncreaseAnimationPeriod()
         {
-            animationPeriod += sec;
+            animationPeriod += 0.1;
         }
         private void DecreaseLineWidth()
         {
