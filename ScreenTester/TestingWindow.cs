@@ -21,7 +21,7 @@ namespace ScreenTester
         public TestingWindow(
             IKeyboardBinding keyboardBinding,
             IEnumerable<ITestingMode> testingModes)
-            : base(800, 600, GraphicsMode.Default)
+            : base(800, 600, GraphicsMode.Default, "Screen Tester")
         {
             this.VSync = VSyncMode.On;
             this.WindowState = WindowState.Fullscreen;
@@ -90,6 +90,21 @@ namespace ScreenTester
             this.keyboardBinding.OnPreviousMode = this.SwitchToPreviousMode;
             this.keyboardBinding.OnIncreaseAnimationPeriod = this.IncreaseAnimationPeriod;
             this.keyboardBinding.OnDecreaseAnimationPeriod = this.DecreaseAnimationPeriod;
+            this.keyboardBinding.OnSwitchWindowState = this.SwitchWindowState;
+        }
+
+        private void SwitchWindowState()
+        {
+            if (this.WindowState == WindowState.Fullscreen)
+            {
+                this.WindowState = WindowState.Normal;
+                this.CursorVisible = true;
+            }
+            else
+            {
+                this.WindowState = WindowState.Fullscreen;
+                this.CursorVisible = false;
+            }
         }
 
         private void DecreaseAnimationPeriod()

@@ -10,6 +10,7 @@ namespace ScreenTester.KeyboardBindings
         public Action OnIncreaseAnimationPeriod { get; set; }
         public Action OnDecreaseAnimationPeriod { get; set; }
         public Action OnExit { get; set; }
+        public Action OnSwitchWindowState { get; set; }
 
         public void InvokeAction(Key key)
         {
@@ -31,6 +32,9 @@ namespace ScreenTester.KeyboardBindings
                     break;
                 case Key.Left:
                     this.OnPreviousMode?.Invoke();
+                    break;
+                case Key.F:
+                    this.OnSwitchWindowState?.Invoke();
                     break;
             }
         }
