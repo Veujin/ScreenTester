@@ -13,13 +13,12 @@ namespace ScreenTester
     class TestingWindow : GameWindow
     {
         private double time = 0;
-        private IKeyboardBinding keyboardBinding;
+        private IMainKeyboardBinding keyboardBinding;
         private IList<ITestingMode> testingModes;
         private int currentTestingModeIndex = 0;
-        private double animationChangeStep = 0.1;
 
         public TestingWindow(
-            IKeyboardBinding keyboardBinding,
+            IMainKeyboardBinding keyboardBinding,
             IEnumerable<ITestingMode> testingModes)
             : base(800, 600, GraphicsMode.Default, "Screen Tester")
         {
@@ -88,9 +87,13 @@ namespace ScreenTester
             this.keyboardBinding.OnExit = this.Exit;
             this.keyboardBinding.OnNextMode = this.SwitchToNextMode;
             this.keyboardBinding.OnPreviousMode = this.SwitchToPreviousMode;
-            this.keyboardBinding.OnIncreaseAnimationPeriod = this.IncreaseAnimationPeriod;
-            this.keyboardBinding.OnDecreaseAnimationPeriod = this.DecreaseAnimationPeriod;
             this.keyboardBinding.OnSwitchWindowState = this.SwitchWindowState;
+            this.keyboardBinding.InvokeForeignKeyboardBinding = this.InvokeForeignBinding;
+        }
+
+        private void InvokeForeignBinding(Key key)
+        {
+            GetCurrentMode().ModeKeyboardBinding?.InvokeAction(key);
         }
 
         private void SwitchWindowState()
@@ -105,20 +108,6 @@ namespace ScreenTester
                 this.WindowState = WindowState.Fullscreen;
                 this.CursorVisible = false;
             }
-        }
-
-        private void DecreaseAnimationPeriod()
-        {
-            this
-                .GetCurrentMode()
-                .DecreaseAnimationPeriodFor(animationChangeStep);
-        }
-
-        private void IncreaseAnimationPeriod()
-        {
-            this
-                .GetCurrentMode()
-                .IncreaseAnimationPeriodFor(animationChangeStep);
         }
 
         private void SwitchToPreviousMode()

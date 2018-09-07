@@ -1,25 +1,24 @@
 ﻿using System;
 using OpenTK.Graphics.OpenGL;
+using ScreenTester.KeyboardBindings;
 
 namespace ScreenTester.TestingModes
 {
     class ZebraMode : ITestingMode
     {
-        double animationPeriod = 2;
-        int lineWidth = 200;
+        private double sec = 0.1;
+        private double animationPeriod = 2;
+        private int lineWidth = 200;
+        public IKeyboardBinding ModeKeyboardBinding { get; set; }
 
-        public void DecreaseAnimationPeriodFor(double sec)
-        {
-            animationPeriod -= sec;
-            if (animationPeriod < 0.5)
-            {
-                animationPeriod = 0.5;
-            }
-        }
 
-        public void IncreaseAnimationPeriodFor(double sec)
+        public ZebraMode(IZebraModeKeyboardBinding keyboardBinding)
         {
-            animationPeriod += sec;
+            this.ModeKeyboardBinding = keyboardBinding;
+            keyboardBinding.OnIncreaseAnimationPeriod = IncreaseAnimationPeriod;
+            keyboardBinding.OnDecreaseAnimationPeriod = DecreaseAnimationPeriod;
+            keyboardBinding.OnIncreaseLinesWidth = IncreaseLineWidth;
+            keyboardBinding.OnDecreaseLinesWidth = DecreaseLineWidth;
         }
 
         public void RednerFrame(double time, int width, int height)
@@ -38,6 +37,33 @@ namespace ScreenTester.TestingModes
                 }
             }
             GL.End();
+        }
+
+        private void DecreaseAnimationPeriod()
+        {
+            animationPeriod -= sec;
+            if (animationPeriod < 0.5)
+            {
+                animationPeriod = 0.5;
+            }
+        }
+
+        private void IncreaseAnimationPeriod()
+        {
+            animationPeriod += sec;
+        }
+        private void DecreaseLineWidth()
+        {
+            lineWidth -= 2;
+            if (lineWidth < 2)
+            {
+                lineWidth = 2;
+            }
+        }
+
+        private void IncreaseLineWidth()
+        {
+            lineWidth += 2;
         }
     }
 }

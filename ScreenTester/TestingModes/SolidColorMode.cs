@@ -1,16 +1,11 @@
 ﻿using OpenTK.Graphics.OpenGL;
+using ScreenTester.KeyboardBindings;
 
 namespace ScreenTester.TestingModes
 {
     abstract class SolidColorMode : ITestingMode
     {
-        public void DecreaseAnimationPeriodFor(double sec)
-        {
-        }
-
-        public void IncreaseAnimationPeriodFor(double sec)
-        {
-        }
+        public IKeyboardBinding ModeKeyboardBinding { get; set; }
 
         public void RednerFrame(double time, int width, int height)
         {

@@ -47,11 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KeyboardBindings\IMainKeyboardBinding.cs" />
     <Compile Include="KeyboardBindings\IKeyboardBinding.cs" />
+    <Compile Include="KeyboardBindings\IZebraModeKeyboardBinding.cs" />
+    <Compile Include="KeyboardBindings\ZebraKeyboardBinding.cs" />
     <Compile Include="TestingModes\InverseChessMode .cs" />
     <Compile Include="TestingModes\ChessMode.cs" />
     <Compile Include="TestingModes\ITestingMode.cs" />
-    <Compile Include="KeyboardBindings\KeyboardBinding.cs" />
+    <Compile Include="KeyboardBindings\MainKeyboardBinding.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestingModes\SolidBlackMode.cs" />

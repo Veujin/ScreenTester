@@ -1,9 +1,10 @@
-﻿namespace ScreenTester.TestingModes
+﻿using ScreenTester.KeyboardBindings;
+
+namespace ScreenTester.TestingModes
 {
     interface ITestingMode
     {
+        IKeyboardBinding ModeKeyboardBinding { get; set; }
         void RednerFrame(double time, int width, int height);
-        void IncreaseAnimationPeriodFor(double sec);
-        void DecreaseAnimationPeriodFor(double sec);
     }
 }

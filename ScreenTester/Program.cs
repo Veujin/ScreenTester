@@ -12,7 +12,7 @@ namespace ScreenTester
         {
             PrintInfo();
             ExitIfReuired(Console.ReadKey());
-            using (TestingWindow game = new TestingWindow(new KeyboardBinding(), GetModes()))
+            using (TestingWindow game = new TestingWindow(new MainKeyboardBinding(), GetModes()))
             {
                 game.Run(60.0);
             }
@@ -49,7 +49,7 @@ namespace ScreenTester
 
             return new List<ITestingMode>()
             {
-                new ZebraMode(),
+                new ZebraMode(new ZebraKeyboardBinding()),
                 new ChessMode(),
                 new InverseChessMode(),
                 new SolidWhiteMode(),
