@@ -34,13 +34,15 @@ namespace ScreenTester
                 + "This tool draws testing screens to allow you test your display.\n"
                 + "Tool supports several modes: blinking zebra, chess, inversed chess and white, black, red, green, blue solid colors.\n\n"
                 + "Navigation:\n"
-                + "[esc] or [q]\t- exit\n"
-                + "[spacebar]\t- next mode\n"
-                + "[f]\t\t- exit/enter full screen mode. Allows you to drag the window on any display.\n\n"
+                + "[esc] or [q]\t\t- exit\n"
+                + "[spacebar]\t\t- next mode\n"
+                + "[f]\t\t\t- exit/enter full screen mode. Allows you to drag the window on any display.\n"
+                + "[pageUp]/[pageDown]\t- increse/decrese zebra size\n\n"
                 + "               increase animation period\n"
                 + "                        [ up ] \n"
                 + "previous mode    [left] [down] [rigth]    next mode\n"
                 + "               decrease animation period\n\n"
+                + "Note: to work properly display scale must be set to 100%.\n"
                 + "Press any key to start.");
         }
 
